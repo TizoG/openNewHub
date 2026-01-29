@@ -1,5 +1,6 @@
 # Entornos
 .venv
+venv
 
 # Variables de entorno
 .env
