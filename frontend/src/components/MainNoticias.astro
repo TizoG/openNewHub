@@ -6,6 +6,7 @@ interface Noticias {
     resumen: string;
     url: string;
     fecha_publicacion: string | Date;
+    categoria: string;
 }
 const { noticias } = Astro.props;
 
@@ -22,23 +23,34 @@ const formatFecha = (fecha: string | Date) => {
     <h1 class="text-4xl font-bold mb-2">Últimas noticias</h1>
 </div>
 
-<div class="grid grid-cols-3 gap-4 mt-5">
+<div class="grid grid-cols-3 gap-4 mt-5 w-full">
     {
         noticias.map((noticia: Noticias, index: any) => (
-            <div class="">
-                <img
-                    src={noticia.imagen}
-                    class="rounded-2xl max-h-80 object-cover"
-                    referrerpolicy="no-referrer"
-                />
+            <div class="flex flex-col group border border-gray-200 rounded-2xl ">
+                <div class="overflow-hidden rounded-tr-2xl rounded-tl-2xl mb-4 h-64 w-full">
+                    <img
+                        src={noticia.imagen}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        referrerpolicy="no-referrer"
+                        alt={noticia.titulo}
+                    />
+                </div>
 
                 <div class="" />
-                <div class="">
-                    <h2 class="text-3xl font-bold mb-2">{noticia.titulo}</h2>
-                    <p class="">{noticia.resumen}</p>
-                    <div class="">
-                        <span>{formatFecha(noticia.fecha_publicacion)}</span>
+                <div class="px-4 border-b border-gray-200">
+                    <div class="flex justify-between ">
+                        <span>{noticia.categoria}</span>
+                        <span class="text-xs">
+                            {formatFecha(noticia.fecha_publicacion)}
+                        </span>
                     </div>
+                    <h2 class="text-xl font-bold mb-2">{noticia.titulo}</h2>
+                    <p class="text-sm">{noticia.resumen}</p>
+                </div>
+                <div class="p-2 max-h-10">
+                    <button class="font-semibold text-sm text-blue-600">
+                        Leer Articulo
+                    </button>
                 </div>
             </div>
         ))
