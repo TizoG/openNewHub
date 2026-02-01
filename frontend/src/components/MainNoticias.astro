@@ -1,0 +1,46 @@
+---
+interface Noticias {
+    imagen: string;
+    titulo: string;
+    fuente: string;
+    resumen: string;
+    url: string;
+    fecha_publicacion: string | Date;
+}
+const { noticias } = Astro.props;
+
+const formatFecha = (fecha: string | Date) => {
+    return new Date(fecha).toLocaleDateString('es-ES', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+    });
+};
+---
+
+<div>
+    <h1 class="text-4xl font-bold mb-2">Últimas noticias</h1>
+</div>
+
+<div class="grid grid-cols-3 gap-4 mt-5">
+    {
+        noticias.map((noticia: Noticias, index: any) => (
+            <div class="">
+                <img
+                    src={noticia.imagen}
+                    class="rounded-2xl max-h-80 object-cover"
+                    referrerpolicy="no-referrer"
+                />
+
+                <div class="" />
+                <div class="">
+                    <h2 class="text-3xl font-bold mb-2">{noticia.titulo}</h2>
+                    <p class="">{noticia.resumen}</p>
+                    <div class="">
+                        <span>{formatFecha(noticia.fecha_publicacion)}</span>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+</div>

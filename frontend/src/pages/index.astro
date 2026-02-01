@@ -1,11 +1,22 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import MainNoticias from '../components/MainNoticias.astro';
+import Navbar from '../components/Navbar.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const response = await fetch('http://localhost:8000/noticias/');
+const todasLasNoticias = await response.json();
+
+const paraCarrusel = [...todasLasNoticias].slice(0, 5);
+const paraFeed = [...todasLasNoticias].slice(5, 15);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Pagina principal">
+    <Navbar />
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <HeroSlider noticias={paraCarrusel} />
+        <section class="mt-12">
+            <MainNoticias noticias={paraFeed} />
+        </section>
+    </main>
 </Layout>
