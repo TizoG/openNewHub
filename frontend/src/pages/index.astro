@@ -1,18 +1,16 @@
 ---
 import HeroSlider from '../components/HeroSlider.astro';
 import MainNoticias from '../components/MainNoticias.astro';
-import Navbar from '../components/Navbar.astro';
 import Layout from '../layouts/Layout.astro';
 
 const response = await fetch('http://localhost:8000/noticias/');
 const todasLasNoticias = await response.json();
 
 const paraCarrusel = [...todasLasNoticias].slice(0, 5);
-const paraFeed = [...todasLasNoticias].slice(5, 15);
+const paraFeed = [...todasLasNoticias].slice(5, 17);
 ---
 
 <Layout title="Pagina principal">
-    <Navbar />
     <main class="max-w-7xl mx-auto px-4 py-6">
         <HeroSlider noticias={paraCarrusel} />
         <section class="mt-12">
