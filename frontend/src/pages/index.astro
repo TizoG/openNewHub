@@ -7,7 +7,7 @@ const response = await fetch('http://localhost:8000/noticias/');
 const todasLasNoticias = await response.json();
 
 const paraCarrusel = [...todasLasNoticias].slice(0, 5);
-const paraFeed = [...todasLasNoticias].slice(5, 17);
+const paraFeed = [...todasLasNoticias].slice(5, 16);
 ---
 
 <Layout title="Pagina principal">

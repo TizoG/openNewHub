@@ -1,0 +1,24 @@
+---
+import CardsNoticias from '../components/CardsNoticias.astro';
+import Layout from '../layouts/Layout.astro';
+
+const response = await fetch('http://localhost:8000/noticias/ciencia');
+const politica = await response.json();
+console.log('RESPUESTA API:', politica);
+---
+
+<Layout title="Ciencia">
+    <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="pb-12">
+            <span class="text-blue-600 font-medium"
+                ><a href="/" class="hover:text-blue-800 hover:underline"
+                    >Inicio</a
+                >/Ciencia</span
+            >
+            <h1 class="font-display text-4xl md:text-5xl">Ciencia</h1>
+        </div>
+        <div class="flex flex-col gap-8 justify-center items-center">
+            <CardsNoticias noticias={politica} />
+        </div>
+    </section>
+</Layout>

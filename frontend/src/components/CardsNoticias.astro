@@ -1,0 +1,67 @@
+---
+interface Noticias {
+    imagen: string;
+    titulo: string;
+    fuente: string;
+    resumen: string;
+    url: string;
+    fecha_publicacion: string | Date;
+    categoria: string;
+}
+const { noticias } = Astro.props;
+
+const formatFecha = (fecha: string | Date) => {
+    return new Date(fecha).toLocaleDateString('es-ES', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+    });
+};
+---
+
+<>
+    {
+        noticias.map((noticia: Noticias, index: any) => (
+            <div data-index={index} class="flex h-auto w-240 gap-4">
+                <div class="flex shrink-0">
+                    <img
+                        src={noticia.imagen}
+                        alt={noticia.titulo}
+                        class="w-96 h-60 object-cover rounded-md"
+                    />
+                </div>
+                <div class="flex flex-col grow ">
+                    <div class="mb-3">
+                        <span class="text-blue-600 font-medium mb-2">
+                            {noticia.categoria}{' '}
+                            <>
+                                <span class="text-gray-400">· </span>
+                                <span class="text-gray-500 font-regular">
+                                    {formatFecha(noticia.fecha_publicacion)}
+                                </span>
+                                <span class="p-1 px-4 ml-2 text-white bg-indigo-400 rounded-2xl">
+                                    {noticia.fuente}
+                                </span>
+                            </>
+                        </span>
+                        <h2 class="font-medium text-2xl">{noticia.titulo}</h2>
+                    </div>
+                    <div class="flex flex-col grow">
+                        <p class="line-clamp-3 text-md text-gray-500">
+                            {noticia.resumen}
+                        </p>
+                    </div>
+                    <div>
+                        <a
+                            href={noticia.url}
+                            target="_blank"
+                            class="text-blue-600 font-medium"
+                        >
+                            Leer mas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+</>
