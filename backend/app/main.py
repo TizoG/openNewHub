@@ -9,6 +9,7 @@ from .api.noticias import router
 from .db.connection import engine
 from .models.models import Base,  Noticias
 
+from .services.borrado_noticias import borrar_noticias_antiguas
 from .services.scheduler import start_scheduler
 
 
@@ -19,6 +20,7 @@ async def lifespan(app: FastAPI):
 
     # 1. Iniciamos el reloj de las 12 horas
     start_scheduler()
+    borrar_noticias_antiguas(db=sesion(), dias=5)
 
     # 2. Ejecutamos la primera ingesta manual para no esperar 12 horas
     db = sesion()
